@@ -47,6 +47,16 @@ p2 = Player.new "O"
 p2.name = "cpu"
 p2.cpu = true
 
+#p2 = Player.new "X"
+#p2.first_to_act = true
+#p2.name = "Human"
+
+#p1 = Player.new "O"
+#p1.first_to_act = true
+#p1.name = "cpu"
+#p1.cpu = true
+
+
 
 turn_count = 1
 loop do 

@@ -6,12 +6,11 @@ end
 
 
 #
-# return true if current player moves contains winning moves, 
+# return true if current player moves contain a winning move, 
 # else return false
 #
 def winner?(curr_player_moves)
-  WINNING_MOVES.each { |winning_moves| return true if winning_moves 
-    & curr_player_moves == winning_moves }
+  WINNING_MOVES.each { |winning_moves| return true if winning_moves & curr_player_moves == winning_moves }
   return false
 end
 
@@ -43,8 +42,7 @@ def draw?(p1_moves, p2_moves)
     p2_moves_copy << n
   end
 
-  return true if winner?(p1_moves_copy) == false 
-    && winner?(p2_moves_copy) == false
+  return true if winner?(p1_moves_copy) == false && winner?(p2_moves_copy) == false
   return false
 end
 
@@ -59,8 +57,7 @@ def turn(curr_player, move)
 end
 
 private
-  WINNING_MOVES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],         # Complete list of winning move combinations
-    [2,5,8],[0,4,8],[2,4,6]]
+  WINNING_MOVES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]   # Complete list of winning move combinations
   SQUARES = [0,1,2,3,4,5,6,7,8]                                     # Availble moves list for empty game baord                                            
 
 end
