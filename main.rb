@@ -5,12 +5,10 @@ require_relative 'minimax'
 
 
 
-
-
 def player_turn(curr_player,opponent, ttt)
   
   if curr_player.cpu == true
-
+    puts "CPU in thinking..."
     avail_moves = ttt.open_squares(opponent.moves, curr_player.moves)
     moves = [opponent.moves, curr_player.moves]
     node = Minimax.new moves, avail_moves
@@ -30,6 +28,9 @@ def player_turn(curr_player,opponent, ttt)
   if ttt.winner?(curr_player.moves)
     puts "#{curr_player.name} wins!!"
     return "winner"
+  elsif ttt.draw?(curr_player.moves, opponent.moves)
+    puts "Game ends in draw."
+    return "draw"
   end
 end
 
@@ -40,36 +41,37 @@ ttt = TicTacToe.new 9, 3   # create tic tac toe game board object
 ttt.instructions   # display instructions
 
 p1 = Player.new "X"
-p1.first_to_act = true
-p1.name = "Human"
+print "Player 1, enter name: "
+p1.name = gets.chomp
+print "Would you like to go first (y/n): "
+gets.chomp == "y" ? p1.first_to_act = true : p1.first_to_act = false
+puts
 
 p2 = Player.new "O"
 p2.name = "cpu"
 p2.cpu = true
 
-#p2 = Player.new "X"
-#p2.first_to_act = true
-#p2.name = "Human"
-
-#p1 = Player.new "O"
-#p1.first_to_act = true
-#p1.name = "cpu"
-#p1.cpu = true
 
 
-
-turn_count = 1
 loop do 
-     
-  str = player_turn(p1, p2, ttt) if turn_count.odd?  
-  str = player_turn(p2, p1, ttt) if turn_count.even?  
-  break if str == "quit" || str == "winner"    
 
-  if ttt.draw?(p1.moves, p2.moves)
-    puts "Game ends in draw."
-    break
-  end
-  turn_count += 1
+  if ttt.open_squares(p1.moves, p2.moves).length.odd? && p1.first_to_act == true
+    curr_player_turn = p1
+    not_player_turn = p2
+  elsif ttt.open_squares(p1.moves, p2.moves).length.even? && p1.first_to_act == true
+    curr_player_turn = p2
+    not_player_turn = p1   
+  elsif ttt.open_squares(p1.moves, p2.moves).length.odd? && p1.first_to_act == false
+    curr_player_turn = p2
+    not_player_turn = p1   
+  elsif ttt.open_squares(p1.moves, p2.moves).length.even? && p1.first_to_act == false
+    curr_player_turn = p1
+    not_player_turn = p2  
+  end  
+
+  game_result = player_turn(curr_player_turn, not_player_turn, ttt) 
+  break if game_result == "quit" || game_result == "winner" || game_result == "draw"   
+
 end
 
 

@@ -1,7 +1,35 @@
 class TicTacToe < Board
 
 def instructions
-  
+  puts
+  puts "------ Tic Tac Toe ------"
+  puts
+  puts "Welcome!"
+  puts "Valid input values are:"
+  puts
+  puts "[quit, 0, 1, 2, 3, 4, 5, 6, 7, 8]"
+  puts
+
+  puts "Gameboard square representation:"
+  puts
+  print "   0   |"
+  print "   1   |"
+  print "   2   "
+  puts
+  print "----------------------"
+  puts
+  print "   3   |"
+  print "   4   |"
+  print "   5   "
+  puts
+  print "----------------------"
+  puts
+  print "   6   |"
+  print "   7   |"
+  print "   8   "
+  puts  
+  puts  
+  puts
 end
 
 

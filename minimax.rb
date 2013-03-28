@@ -65,7 +65,7 @@ class Minimax
 
     #
     # sets @score value to be either the highest or lowest value 
-    # from children nodes of same depth value. This value is 
+    # from children nodes. This value is 
     # then set to @score for current node, which is parent node 
     # of children nodes. Even @depth value = max @score value 
     # from child nodes, Odd @depth value = min @score value 

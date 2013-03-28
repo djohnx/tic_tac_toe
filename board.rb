@@ -12,12 +12,24 @@ class Board
   # moves marked on board
   #
   def display
-    i = 1
-    squares.length.times do |n|
-      print "  #{squares[n]}  "
-      puts if i % width == 0
-      i += 1
-    end
+    puts
+    print "   #{squares[0]}   |"
+    print "   #{squares[1]}   |"
+    print "   #{squares[2]}   "
+    puts
+    print "----------------------"
+    puts
+    print "   #{squares[3]}   |"
+    print "   #{squares[4]}   |"
+    print "   #{squares[5]}   "
+    puts
+    print "----------------------"
+    puts
+    print "   #{squares[6]}   |"
+    print "   #{squares[7]}   |"
+    print "   #{squares[8]}   "
+    puts  
+    puts  
   end
 
 end
