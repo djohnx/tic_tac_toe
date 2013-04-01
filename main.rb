@@ -30,7 +30,7 @@ def player_turn(curr_player, opponent, ttt)
   avail_moves = ttt.open_squares(opponent.moves, curr_player.moves)
   
   if curr_player.cpu == true                                            # CPU turn processing
-    puts "CPU in thinking..."
+    puts "CPU is thinking..."
     moves = [opponent.moves, curr_player.moves]
     node = Minimax.new moves, avail_moves
     node.generate_tree(ttt)
