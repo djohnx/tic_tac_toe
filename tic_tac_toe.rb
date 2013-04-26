@@ -1,5 +1,9 @@
 class TicTacToe < Board
 
+#
+# Display instructions
+# Display gameboard representation
+#
 def instructions
   puts
   puts "------ Tic Tac Toe ------"
@@ -34,7 +38,8 @@ end
 
 
 #
-# return true if current player moves contain a winning move, 
+# Determine is current player made winning move
+# return true if this is the case 
 # else return false
 #
 def winner?(curr_player_moves)
@@ -44,13 +49,14 @@ end
 
 
 #
-# return array of available moves, receive p1 and p2 moves
+# Determine available moves
+# receive p1 moves and p2 moves
+# return array of available moves
 #
 def open_squares(p1_moves, p2_moves)
-  list = []
-  combined_moves = p1_moves + p2_moves
-  SQUARES.each { |n| list << n if !combined_moves.include?(n)}
-  return list
+  avail_moves = Array.new
+  SQUARES.each { |n| avail_moves << n unless p1_moves.include?(n) || p2_moves.include?(n) }
+  return avail_moves
 end
 
 
@@ -60,32 +66,16 @@ end
 # account whose turn it is.
 # 
 def draw?(p1_moves, p2_moves)
-  p1_moves_copy = p1_moves.dup
-  p2_moves_copy = p2_moves.dup
-
-  avail_moves = open_squares(p1_moves_copy, p2_moves_copy)
-
-  avail_moves.each do |n| 
-    p1_moves_copy << n
-    p2_moves_copy << n
-  end
-
-  return true if winner?(p1_moves_copy) == false && winner?(p2_moves_copy) == false
+  avail_moves = open_squares(p1_moves, p2_moves)
+  return true if winner?(p1_moves | avail_moves) == false && winner?(p2_moves | avail_moves) == false
   return false
 end
 
 
-#
-# records move for player, sets mark value
-# on game baord for display purposes
-#
-def turn(curr_player, move)
-  curr_player.move(move)                                            # calls move fcn from class Player, records move
-  self.squares[move] = curr_player.mark                             # calls squares set fcn from class Board, records mark for current aquare (move), used for display purposes
-end
-
 private
-  WINNING_MOVES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]   # Complete list of winning move combinations
-  SQUARES = [0,1,2,3,4,5,6,7,8]                                     # Availble moves list for empty game baord                                            
+  # Complete list of winning move combinations
+  WINNING_MOVES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]   
 
+  # Availble moves list for empty game baord 
+  SQUARES = [0,1,2,3,4,5,6,7,8]                                                                                
 end

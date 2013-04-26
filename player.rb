@@ -6,11 +6,13 @@ class Player
     @mark = mark                                        # game piece, 'X' and 'O' for tic tac toe
     @cpu = false                                        # true = this is a cpu player, false = this is a human player
     @first_to_act = false                               # true = first player to move, false = second player to move
-    @moves = [] 
+    @moves = []
+    @name = "" 
   end
 
   #
-  # Stores moves of current player
+  # receives current move 
+  # records move of current player
   #
   def move(move)
     @moves << move

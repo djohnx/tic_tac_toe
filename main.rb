@@ -43,7 +43,9 @@ def player_turn(curr_player, opponent, ttt)
     return "quit" if input.downcase == "quit"
   end
 
-  ttt.turn(curr_player, input.to_i)                                     # records move
+  #ttt.turn(curr_player, input.to_i)                                     # records move
+  ttt.mark_board(input.to_i, curr_player.mark)
+  curr_player.move(input.to_i)
   ttt.display                                                           # displays updated board
   if ttt.winner?(curr_player.moves)                                     # evaluates for winning move
     puts "#{curr_player.name} wins!!"

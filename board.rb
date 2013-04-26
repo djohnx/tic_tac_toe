@@ -6,6 +6,14 @@ class Board
     self.width = width
   end
 
+#
+# receives player move and mark
+# records player mark on gameboard
+#
+  def mark_board(move, curr_player_mark)
+    self.squares[move] = curr_player_mark
+  end
+
 
   #
   # Prints out game board with player

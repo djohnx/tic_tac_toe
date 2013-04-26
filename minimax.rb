@@ -15,8 +15,10 @@ class Minimax
   # receieves TicTacToe object, necessary in determining end games 
   # and available moves. Generates full game tree for tic tac toe 
   # using minimax algorithm. Player turns are determined by node 
-  # depth value.  Even depth (0,2,4..) = player 1 (Min), Odd depth 
-  # (1,3,5..) = player 2 (Max).
+  # depth value.  Even depth (0,2,4..) receives Max values for best
+  # move for Player 2 (CPU).  Odd depth (1,3,5..) receives Min value
+  # for best move for Player 1.  It is always player 2 (CPU) turn
+  # when function is called.  
   #
   def generate_tree(ttt)
     
@@ -25,7 +27,7 @@ class Minimax
     # when an endgame is reached
     #
     if ttt.winner?(@data[@depth.even? ? 0 : 1])                               # @data[0] = player 1 moves, @data[1] = player 2 moves
-      @depth.even? ? @score = -1.0 / @depth : @score = 1.0 / @depth           # helps identify shortest path to a winning move (i.e. 3 nodes of +1 value, which do you chose?), depth of 2 is better than depth of 4
+      @depth.even? ? @score = -1.0 / @depth : @score = 1.0 / @depth           # helps identify shortest path to a winning move (i.e. 3 nodes of +1 value, which do you chose?), depth of 2 is better than depth of 4.  Odd @dpeth represent move by Player 2 (MAX)
       @avail_moves = []
       return @score
     elsif ttt.draw?(@data[0], @data[1])                                       # @data[0] = player 1 moves, @data[1] = player 2 moves
@@ -46,7 +48,7 @@ class Minimax
       new_board = Array.new(2) { Array.new }
       new_board[0] = @data[0].dup
       new_board[1] = @data[1].dup
-      new_board[@depth.even? ? 1 : 0] << @avail_moves.shift                   # Generates moves for next level, not current level.  new_board[0] = player 1 moves, new_board[1] = player 2 moves
+      new_board[@depth.even? ? 1 : 0] << @avail_moves.shift                   # Generates moves for next level, not current level.  new_board[0] = player 1 moves, new_board[1] = player 2 (CPU) moves
       avail_moves = ttt.open_squares(new_board[0], new_board[1])
       @children << Minimax.new(new_board, avail_moves, (@depth + 1), self)  
     end
@@ -64,12 +66,11 @@ class Minimax
     end
 
     #
-    # sets @score value to be either the highest or lowest value 
-    # from children nodes. This value is 
-    # then set to @score for current node, which is parent node 
-    # of children nodes. Even @depth value = max @score value 
-    # from child nodes, Odd @depth value = min @score value 
-    # from child nodes
+    # Determines @score value based on node @depth value. 
+    # Even @depth value sets @score value to Max value
+    # of childen nodes, indicating Player 2 (CPU) best move.  
+    # Odd @depth value sets @score value to Min value
+    # of children nodes, indicating Player 1 best move.
     #
     @score = @depth.even? ? score_array.max : score_array.min
 
