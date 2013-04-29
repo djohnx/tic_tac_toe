@@ -33,9 +33,9 @@ def player_turn(curr_player, opponent, ttt)
     puts "CPU is thinking..."
     moves = [opponent.moves, curr_player.moves]
     node = Minimax.new moves, avail_moves
-    node.generate_tree(ttt)
+    node.create_minimax_tree(ttt)
 
-    next_move = node.next_move
+    next_move = node.select_computer_move
     input = next_move[0]
     puts "CPU Turn: #{input}"
   else                                                                  # Human player processing
